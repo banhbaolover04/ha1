@@ -14,6 +14,8 @@ public class Calculator {
 
     private String latestOperation = "";
 
+    private boolean lastDigitkey = false;
+
     /**
      * @return den aktuellen Bildschirminhalt als String
      */
@@ -29,11 +31,12 @@ public class Calculator {
      * @param digit Die Ziffer, deren Taste gedrückt wurde
      */
     public void pressDigitKey(int digit) {
-        if(digit > 9 || digit < -9) throw new IllegalArgumentException(); //Wertebereich vergrößert anstatt 0 -->-9
+        if(digit > 9 || digit < 0) throw new IllegalArgumentException(); //Wertebereich vergrößert anstatt 0 -->-9
 
         if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
 
         screen = screen + digit;
+        lastDigitkey = true;
     }
 
     /**
@@ -48,6 +51,7 @@ public class Calculator {
         screen = "0";
         latestOperation = "";
         latestValue = 0.0;
+        lastDigitkey = false;
     }
 
     /**
@@ -60,12 +64,14 @@ public class Calculator {
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation) {
-        if (!latestOperation.isEmpty()) {
+        if (!latestOperation.isEmpty() && lastDigitkey == true) {
             pressEqualsKey(); // Berechne das Zwischenergebnis
         }
 
+
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
+        lastDigitkey = false;
     }
 
     /**

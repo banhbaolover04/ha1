@@ -108,40 +108,43 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
-// Aufgabe 2
+
+    // Aufgabe 2
     // Erster failed Test
-@Test
-@DisplayName("should display result after multiplying three positive single-digit numbers")
-void testMultiplication() {
-    Calculator calc = new Calculator();
-
-    calc.pressDigitKey(7);
-    calc.pressBinaryOperationKey("x");
-    calc.pressDigitKey(7);
-    calc.pressBinaryOperationKey("x");
-    calc.pressDigitKey(5);
-    calc.pressEqualsKey();
-
-    String expected = "245";
-    String actual = calc.readScreen();
-
-    assertEquals(expected, actual);
-}
-// 2 Failed Test
     @Test
-    @DisplayName("should display negative result when adding two negative multi digit numbers")
-    void testAddition2() {
+    @DisplayName("should display result after multiplying three positive single-digit numbers")
+    void testMultiplication() {
         Calculator calc = new Calculator();
 
-        calc.pressDigitKey(-7);
-        calc.pressDigitKey(0);
-        calc.pressBinaryOperationKey("+");
-        calc.pressDigitKey(-3);
-        calc.pressDigitKey(0);
+        calc.pressDigitKey(7);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(7);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(5);
         calc.pressEqualsKey();
 
-        String expected = "-100";
+        String expected = "245";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
-    }}
+    }
+
+    // 2 Failed Test
+    @Test
+    @DisplayName("should display negative result when adding two negative multi digit numbers")
+    void testPunkVorStrich() {
+        Calculator calc = new Calculator();
+
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(7);
+        calc.pressBinaryOperationKey("-");
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+        String expected = "-4";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+}
